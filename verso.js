@@ -11,6 +11,8 @@
         this._timer = null;
         // The last point we were on
         this._lastPoint = null;
+        // To be able to remove the event listener
+        this._listener = this.listener.bind(this);
         // Query that represents DOM elements that denote "pages"
         this.query          = opts.query || '.page';
         // Name of the event that is emitted when a dom element is encountered
@@ -25,11 +27,29 @@
         this.init();
     }
 
+    Verso.prototype.init = function() {
+        var self = this;
+        this._observeList = document.querySelectorAll(this.query);
+
+        if(this._observeList.length > 0) {
+            window.addEventListener('scroll', this._listener, false);
+            
+            this._isReady = true;
+        }
+    };
+
+    Verso.prototype.stopListening = function() {
+        var self = this;
+
+        window.removeEventListener('scroll', this._listener, false);
+        this._isReady = false;
+    };
+
     Verso.prototype.checkCurrentPoint = function() {
         var temp = null,
             rect = null,
             el   = null,
-            procArea = window.innerHeight * this.viewPercentage;
+            procArea = window.innerHeight - (window.innerHeight * this.viewPercentage);
 
         for(var i = 0, len = this._observeList.length; i < len; i++) {
             el = this._observeList[i];
@@ -55,17 +75,6 @@
         }
 
         this._timer = setTimeout(this.checkCurrentPoint.bind(this), this.delay);
-    };
-
-    Verso.prototype.init = function() {
-        var self = this;
-        this._observeList = document.querySelectorAll(this.query);
-
-        if(this._observeList.length > 0) {
-            window.addEventListener('scroll', this.listener.bind(self));
-            
-            this._isReady = true;
-        }
     };
 
     // Returns true if it is watching for page, false if not
