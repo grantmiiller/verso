@@ -21,14 +21,14 @@
         this.delay          = opts.delay || 500;
         // Distance element has to be up the viewport for it to register as a page
         this.viewPercentage = opts.viewPrecentage || 0.66;
-
+        // Create our custom event
         this._event = new CustomEvent(this.eventLabel, {"detail": {}});
-
+        // Start everything
         this.init();
     }
 
+    // Gets all dom elements from query, and if exists, listen for scroll
     Verso.prototype.init = function() {
-        var self = this;
         this._observeList = document.querySelectorAll(this.query);
 
         if(this._observeList.length > 0) {
@@ -38,13 +38,13 @@
         }
     };
 
+    // Stops listening
     Verso.prototype.stopListening = function() {
-        var self = this;
-
         window.removeEventListener('scroll', this._listener, false);
         this._isReady = false;
     };
 
+    // Checks which page is in current position, and if there is one, emits event
     Verso.prototype.checkCurrentPoint = function() {
         var temp = null,
             rect = null,
@@ -67,6 +67,7 @@
         }
     };
 
+    // Runs on scroll and continues functionality if delay is long enough
     Verso.prototype.listener = function(evt) {
         var e = evt || window.event;
     
@@ -82,11 +83,13 @@
         return this._isReady;
     }
 
+    // Fires custom event with given data
     Verso.prototype.emit = function(data) {
         this._event.detail.data = data;
         document.dispatchEvent(this._event);
     };
 
+    // Sets or returns a property
     Verso.prototype.property = function(label, value) {
         if(value) {
             return this[label] = value;
