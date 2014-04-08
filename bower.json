@@ -1,0 +1,12 @@
+{
+  "name": "verso",
+  "version": "1.0.0",
+  "main": "verso.js",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "devDependencies": {
+    "mocha": "1.x"
+  }
+}
