@@ -1,9 +1,15 @@
 {
   "name": "versoJS",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "verso.js",
   "ignore": [
     ".jshintrc",
-    "**/*.txt"
-  ]
+    "**/*.txt",
+    "bower_components"
+  ],
+  "devDependencies": {
+    "mocha": "1.x",
+    "chai": "1.x",
+    "sinon": "1.x"
+  }
 }
