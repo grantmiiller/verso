@@ -5,8 +5,5 @@
   "ignore": [
     ".jshintrc",
     "**/*.txt"
-  ],
-  "devDependencies": {
-    "mocha": "1.x"
-  }
+  ]
 }
