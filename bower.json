@@ -1,6 +1,6 @@
 {
   "name": "verso",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "verso.js",
   "ignore": [
     ".jshintrc",
