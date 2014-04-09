@@ -46,10 +46,11 @@
 
     // Checks which page is in current position, and if there is one, emits event
     Verso.prototype.checkCurrentPoint = function() {
-        var temp = null,
-            rect = null,
-            el   = null,
-            procArea = window.innerHeight - (window.innerHeight * this.viewPercentage);
+        var temp            = null,
+            rect            = null,
+            el              = null,
+            viewportHeight  = (window.innerHeight || document.documentElement.clientHeight),
+            procArea        = viewportHeight - (viewportHeight * this.viewPercentage);
 
         for(var i = 0, len = this._observeList.length; i < len; i++) {
             el = this._observeList[i];
