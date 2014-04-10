@@ -1,5 +1,7 @@
 (function(undefined) {
 
+    "use strict";
+
     function Verso(args) {
         var opts = args || {};
 
