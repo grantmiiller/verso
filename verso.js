@@ -1,5 +1,4 @@
 (function(undefined) {
-    "use strict";
 
     function Verso(args) {
         var opts = args || {};
@@ -53,19 +52,24 @@
             viewportHeight  = (window.innerHeight || document.documentElement.clientHeight),
             procArea        = viewportHeight - (viewportHeight * this.viewPercentage);
 
-        if(rect.top < procArea) {
-            temp = el;
+        for(var i = 0, len = this._observeList.length; i < len; i++) {
+            el = this._observeList[i];
+            rect = el.getBoundingClientRect();
 
-            if(len === 1 && temp !== this._lastPoint) {
+            if(rect.top < procArea) {
+                temp = el;
+
+                if(len === 1 && temp !== this._lastPoint) {
+                    this._lastPoint = temp;
+                    this.emit({el: temp, index: i});
+                }
+            } else {
+                if(temp && temp !== this._lastPoint) {
+                    this.emit({el: temp, index: i});
+                }
                 this._lastPoint = temp;
-                this.emit({el: temp, index: i});
+                break;
             }
-        } else {
-            if(temp && temp !== this._lastPoint) {
-                this.emit({el: temp, index: i});
-            }
-            this._lastPoint = temp;
-            break;
         }
     };
 
